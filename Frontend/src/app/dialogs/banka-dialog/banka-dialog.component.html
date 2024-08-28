@@ -1,0 +1,42 @@
+<div class="container">
+  <h3 mat-dialog-title *ngIf="flagArtDialog == 1">Dodavanje bolnice</h3>
+  <h3 mat-dialog-title *ngIf="flagArtDialog == 2">Modifikacija bolnice: {{data.naziv}}</h3>
+  <h3 mat-dialog-title *ngIf="flagArtDialog == 3">Brisanje bolnice: {{data.naziv}}</h3>
+  <form class="mat-dialog-content" #formControl="ngForm">
+      <div class="form">
+          <mat-form-field>
+              <input matInput placeholder="Naziv" [(ngModel)]="data.naziv" name="naziv" [disabled]="flagArtDialog == 3"
+                  required>
+          </mat-form-field>
+      </div>
+      <div class="form">
+          <mat-form-field>
+              <input matInput placeholder="Kontakt" [(ngModel)]="data.kontakt" name="kontakt"
+                  [disabled]="flagArtDialog == 3" required>
+          </mat-form-field>
+      </div>
+
+      <div class="form">
+          <mat-form-field>
+              <input matInput placeholder="PIB" [(ngModel)]="data.pib" name="pib"
+                  [disabled]="flagArtDialog == 3" required>
+          </mat-form-field>
+      </div>
+      <div mat-dialog-actions>
+          <button mat-raised-button *ngIf="flagArtDialog==1" type="submit" [mat-dialog-close]="1" (click)="add()"
+              [disabled]="!formControl.valid">
+              Sačuvaj
+          </button>
+          <button mat-raised-button *ngIf="flagArtDialog==2" type="submit" [mat-dialog-close]="1" (click)="update()"
+              [disabled]="!formControl.valid">
+              Sačuvaj
+          </button>
+          <button mat-raised-button *ngIf="flagArtDialog==3" type="submit" [mat-dialog-close]="1" (click)="delete()">
+              Obriši
+          </button>
+          <button mat-raised-button (click)="cancel()">
+              Poništi
+          </button>
+      </div>
+  </form>
+</div>

@@ -1,0 +1,52 @@
+<div class="container">
+  <h3 mat-dialog-title *ngIf="flagArtDialog == 1">Dodavanje filijale</h3>
+  <h3 mat-dialog-title *ngIf="flagArtDialog == 2">Ažuriranje filijale: {{data.prezime}}</h3>
+  <h3 mat-dialog-title *ngIf="flagArtDialog == 3">Brisanje filijale: {{data.prezime}}</h3>
+
+  <form class="mat-dialog-content" #formControl="ngForm">
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Ime" name="Ime" [disabled]="flagArtDialog == 3" [(ngModel)]="data.ime" required />
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Prezime" name="Prezime" [disabled]="flagArtDialog == 3" [(ngModel)]="data.prezime" required />
+      </mat-form-field>
+    </div>
+
+    <div class="form">
+      <mat-form-field>
+        <input matInput placeholder="Maticni broj" name="Maticni broj" [disabled]="flagArtDialog == 3" [(ngModel)]="data.maticni_broj" required />
+      </mat-form-field>
+    </div>
+  </form>
+
+  <div class="form">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.filijala" placeholder="filijala" name="filijala" [compareWith]="compareTo" [disabled]="flagArtDialog == 3">
+        <mat-option *ngFor="let filijala of filijale" [value]="filijala">
+          {{ filijala.adresa }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="form">
+    <mat-form-field>
+      <mat-select [(ngModel)]="data.usluga" placeholder="usluga" name="usluga" [compareWith]="compareTo" [disabled]="flagArtDialog == 3">
+        <mat-option *ngFor="let usluga of usluge" [value]="usluga">
+          {{ usluga.naziv }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <div class="mat-dialog-actions">
+    <button matButton *ngIf="flagArtDialog == 1" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="add()">Sačuvaj</button>
+    <button matButton *ngIf="flagArtDialog == 2" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Modifikuj</button>
+    <button matButton *ngIf="flagArtDialog == 3" mat-dialog-close="1" (click)="delete()">Obriši</button>
+    <button matButton (click)="cancel()">Poništi</button>
+  </div>
+</div>

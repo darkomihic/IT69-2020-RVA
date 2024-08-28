@@ -1,0 +1,46 @@
+<div class="container">
+    <h3 mat-dialog-title *ngIf="flagArtDialog == 1">Dodavanje filijale</h3>
+    <h3 mat-dialog-title *ngIf="flagArtDialog == 2">Ažuriranje filijale: {{data.adresa}}</h3>
+    <h3 mat-dialog-title *ngIf="flagArtDialog == 3">Brisanje filijale: {{data.adresa}}</h3>
+  
+    <form class="mat-dialog-content" #formControl="ngForm">
+      <div class="form">
+        <mat-form-field>
+          <input matInput placeholder="Adresa" name="Adresa" [disabled]="flagArtDialog == 3" [(ngModel)]="data.adresa" required />
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field>
+          <mat-select placeholder="Poseduje Sef" name="PosedujeSef" [disabled]="flagArtDialog == 3" [(ngModel)]="data.poseduje_sef" required>
+            <mat-option [value]="true">True</mat-option>
+            <mat-option [value]="false">False</mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  
+      <div class="form">
+        <mat-form-field>
+          <input matInput type="number" placeholder="Broj Pultova" name="BrojPultova" [disabled]="flagArtDialog == 3" [(ngModel)]="data.broj_pultova" required />
+        </mat-form-field>
+      </div>
+    </form>
+  
+    <div class="form">
+      <mat-form-field>
+        <mat-select [(ngModel)]="data.banka" placeholder="Banka" name="banka" [compareWith]="compareTo" [disabled]="flagArtDialog == 3">
+          <mat-option *ngFor="let banka of banke" [value]="banka">
+            {{ banka.naziv }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  
+    <div class="mat-dialog-actions">
+      <button matButton *ngIf="flagArtDialog == 1" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="add()">Sačuvaj</button>
+      <button matButton *ngIf="flagArtDialog == 2" type="submit" mat-dialog-close="1" [disabled]="!formControl.valid" (click)="update()">Modifikuj</button>
+      <button matButton *ngIf="flagArtDialog == 3" mat-dialog-close="1" (click)="delete()">Obriši</button>
+      <button matButton (click)="cancel()">Poništi</button>
+    </div>
+  </div>
+  
